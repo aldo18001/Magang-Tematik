@@ -32,9 +32,9 @@ premi <- function(i,k,usia,b){
   result
 }
 
-premik <- function(i,k,usia,b){
+premik <- function(i,k,usia,b,adm){
   
-  P = (insurance(i,k,usia,b)+(430000*annuity(i,k,usia)))/(annuity(i,k,usia)-sum(e[1:k]))
+  P = (insurance(i,k,usia,b)+(adm*annuity(i,k,usia)))/(annuity(i,k,usia)-sum(e[1:k])) 
   P
 }
 
