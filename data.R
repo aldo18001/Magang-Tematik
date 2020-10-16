@@ -1,8 +1,7 @@
-library(readr)
-y <- read_excel("C:/Users/Lenovo/OneDrive/Semester 5/Magang Tematik/cewe.xlsx")
-x <- read_excel("C:/Users/Lenovo/OneDrive/Semester 5/Magang Tematik/cowo.xlsx")
 library(readxl)
-expense <- read_excel("C:/Users/Lenovo/OneDrive/Semester 5/Magang Tematik/expense.xlsx")
-e <- expense$biaya
+y <- read_excel("cewe.xlsx")
+x <- read_excel("cowo.xlsx")
 
-source("C:/Users/Lenovo/OneDrive/Semester 5/Magang Tematik/function.R")
+expense <- read_excel("expense.xlsx")
+e <- expense$biaya
+source("function.R")
