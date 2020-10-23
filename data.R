@@ -10,4 +10,3 @@ x <- read_excel('lakibulan.xlsx')
 expense <- read_excel("expense.xlsx")
 e <- expense$biaya
 source("function.R")
-

@@ -19,33 +19,38 @@ annuity <- function(usia, k, discount_rate = 0.055, inflation =  0.025){
   sum(diskonto*peluang)
 }
 
-annuity(30,5)
-insurance <- function(i,k,usia,b){
+
+insurance <- function(usia, k, discount_rate = 0.055, inflation =  0.025, benefit = 2000000000){
+  usia <- usia-20
+  i <- (discount_rate-inflation)
   JK <- readline(prompt="Masukkan jenis kelamin L/P: ")
   if(JK=="L"){
     ph <- x$p
+    q <- x$q
   } else{
     ph <- y$p
+    q <- y$q
   }
-  diskonto <- (1+i) ^ - (1:k)
-  peluangh <- c(1,cumprod(ph[(usia+2):(usia+k)]))
-  qx = 1 - ph
-  peluangd <- qx[(usia+1):(usia+k)]
+  l <- array()
+  for(j in c(0:(k*12))){
+    l[j] <- (1+i)^(-i/12)
+  }
+  diskonto <- l
+  peluangh <- c(1,cumprod(ph[(usia*12+2):(usia*12+k*12)]))
+  peluangd <- q[(usia*12+1):(usia*12+k*12)]
   a <- sum(diskonto*peluangh*peluangd)
-  a*b
-}
-
-premi <- function(i,k,usia,b){
-  result = as/an
+  result <- a*benefit
   result
 }
 
-premik <- function(i,k,usia,b,adm){
-  
-  P = (insurance(i,k,usia,b)+(adm*annuity(i,k,usia)))/(annuity(i,k,usia)-sum(e[1:k])) 
+premi <- function(usia,k,discount_rate = 0.055, inflation =  0.025, benefit = 2000000000 ){
+  result = insurance(usia,k)/annuity(usia,k)
+  result
+}
 
-  P = (insurance(i,k,usia,b)+(420000*annuity(i,k,usia)))/(annuity(i,k,usia)-sum(e[1:k]))
-
+premik <- function(usia,k,discount_rate = 0.055, inflation =  0.025, benefit = 2000000000, adm = 420000){
+  P = (insurance(usia,k)+(adm*annuity(usia,k)))/(annuity(usia,k)-sum(e[1:k])) 
   P
 }
+  
 
