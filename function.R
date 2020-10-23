@@ -49,7 +49,7 @@ premi <- function(usia,k,discount_rate = 0.055, inflation =  0.025, benefit = 20
 }
 
 premik <- function(usia,k,discount_rate = 0.055, inflation =  0.025, benefit = 2000000000, adm = 420000){
-  P = (insurance(usia,k)+(adm*annuity(usia,k)))/(annuity(usia,k)-sum(e[1:k])) 
+  P = (insurance(usia,k)+(adm*annuity(usia,k)))/(annuity(usia,k)-sum(e[1:k*12])) 
   P
 }
   
