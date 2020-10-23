@@ -1,17 +1,25 @@
-annuity <- function(i,k,usia){
+annuity <- function(usia, k, discount_rate = 0.055, inflation =  0.025){
+  usia <- usia-20
+  i <- (discount_rate-inflation)
   JK <- readline(prompt="Masukkan jenis kelamin L/P: ")
   if(JK=="L"){
     ph <- x$p
   } else{
     ph <- y$p
   }
-  diskonto <- (1+i) ^ - (0:(k-1))
-  peluang = c(1,cumprod(ph[(usia+2):(usia+k)]))
+  l <- array()
+  for(j in c(0:(k*12))){
+    l[j] <- (1+i)^(-i/12)
+  }
+  diskonto <- l
+  #diskonto <- (1+i) ^ - (0:(k*12)-1)
+  peluang = c(1,cumprod(ph[(usia*12+2):((usia*12)+k*12)]))
   rm(JK)
   rm(ph)
   sum(diskonto*peluang)
 }
 
+annuity(30,5)
 insurance <- function(i,k,usia,b){
   JK <- readline(prompt="Masukkan jenis kelamin L/P: ")
   if(JK=="L"){
