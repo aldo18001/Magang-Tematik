@@ -9,7 +9,7 @@ annuity <- function(usia, k, discount_rate = 0.055, inflation =  0.025){
   }
   l <- array()
   for(j in c(0:(k*12))){
-    l[j] <- (1+i)^(-i/12)
+    l[j] <- (1+i)^(-j/12)
   }
   diskonto <- l
   #diskonto <- (1+i) ^ - (0:(k*12)-1)
