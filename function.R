@@ -34,11 +34,10 @@ premi <- function(i,k,usia,b){
 
 premik <- function(i,k,usia,b,adm){
   
-<<<<<<< HEAD
   P = (insurance(i,k,usia,b)+(adm*annuity(i,k,usia)))/(annuity(i,k,usia)-sum(e[1:k])) 
-=======
+
   P = (insurance(i,k,usia,b)+(420000*annuity(i,k,usia)))/(annuity(i,k,usia)-sum(e[1:k]))
->>>>>>> cad47dc86b8e36fbbf23ddc65305241af8e25877
+
   P
 }
 
