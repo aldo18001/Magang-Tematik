@@ -1,7 +1,6 @@
-annuity <- function(usia, k, discount_rate = 0.055, inflation =  0.025){
+annuity <- function(usia, k, JK, discount_rate = 0.055, inflation =  0.025){
   usia <- usia-20
   i <- (discount_rate-inflation)
-  JK <- readline(prompt="Masukkan jenis kelamin L/P: ")
   if(JK=="L"){
     ph <- x$p
   } else{
@@ -17,10 +16,9 @@ annuity <- function(usia, k, discount_rate = 0.055, inflation =  0.025){
   sum(diskonto*peluang)
 }
 
-xpns <- function(usia, k, discount_rate = 0.055, inflation =  0.025){
+xpns <- function(usia, k,JK,discount_rate = 0.055, inflation =  0.025){
   usia <- usia-20
   i <- (discount_rate-inflation)
-  JK <- readline(prompt="Masukkan jenis kelamin L/P: ")
   if(JK=="L"){
     ph <- x$p
   } else{
@@ -40,10 +38,10 @@ xpns <- function(usia, k, discount_rate = 0.055, inflation =  0.025){
 
 
 
-insurance <- function(usia, k, discount_rate = 0.055, inflation =  0.025, benefit = 2000000000){
+insurance <- function(usia, k, JK, discount_rate = 0.055, inflation =  0.025, benefit = 2000000000){
   usia <- usia-20
   i <- (discount_rate-inflation)
-  JK <- readline(prompt="Masukkan jenis kelamin L/P: ")
+
   if(JK=="L"){
     ph <- x$p
     q <- x$q
@@ -66,26 +64,25 @@ insurance <- function(usia, k, discount_rate = 0.055, inflation =  0.025, benefi
   result
 }
 
-premi <- function(usia,k,discount_rate = 0.055, inflation =  0.025, benefit = 2000000000 ){
-  result = insurance(usia,k)/annuity(usia,k)
+premi <- function(usia,k,JK,discount_rate = 0.055, inflation =  0.025, benefit = 2000000000 ){
+  result = insurance(usia,k,JK)/annuity(usia,k,JK)
   result
 }
 
 #premi kotor
-premik <- function(usia,k,discount_rate = 0.055, inflation =  0.025, benefit = 2000000000, adm = 420000){
-  P = (insurance(usia,k)+(adm*annuity(usia,k)))/(annuity(usia,k)-xpns(usia,k)) 
+premik <- function(usia,k,JK,discount_rate = 0.055, inflation =  0.025, benefit = 2000000000, adm = 420000){
+  P = (insurance(usia,k,JK)+(adm*annuity(usia,k,JK)))/(annuity(usia,k,JK)-xpns(usia,k,JK)) 
   P
 }
   
 #Reserve but no expense
 
-reserve <- function(usia,k,bulan_ke,discount_rate = 0.055, inflation = 0.025, benefit = 2000000000, adm = 420000){
+reserve <- function(usia,k,bulan_ke,JK,discount_rate = 0.055, inflation = 0.025, benefit = 2000000000, adm = 420000){
   usia1 <- usia-20
   i <- (discount_rate-inflation)
   k1 <- (k*12)-bulan_ke
   usia2 <- (usia1*12)+bulan_ke
   
-  JK <- readline(prompt="Masukkan jenis kelamin L/P: ")
   if(JK=="L"){
     ph <- x$p
     q <- x$q
@@ -116,7 +113,7 @@ reserve <- function(usia,k,bulan_ke,discount_rate = 0.055, inflation = 0.025, be
   }
   diskonto <- l2
   
-  premium <- premik(usia,k)
+  premium <- premik(usia,k,JK)
   
   Inflow <- sum(l2*peluang)*premium
   
@@ -127,13 +124,12 @@ reserve <- function(usia,k,bulan_ke,discount_rate = 0.055, inflation = 0.025, be
 
 #Reserve /w expense
 
-creserve <- function(usia,k,bulan_ke,discount_rate = 0.055, inflation = 0.025, benefit = 2000000000, adm = 420000){
+creserve <- function(usia,k,bulan_ke,JK,discount_rate = 0.055, inflation = 0.025, benefit = 2000000000, adm = 420000){
   usia1 <- usia-20
   i <- (discount_rate-inflation)
   k1 <- (k*12)-bulan_ke
   usia2 <- (usia1*12)+bulan_ke
   
-  JK <- readline(prompt="Masukkan jenis kelamin L/P: ")
   if(JK=="L"){
     ph <- x$p
     q <- x$q
@@ -167,12 +163,12 @@ creserve <- function(usia,k,bulan_ke,discount_rate = 0.055, inflation = 0.025, b
   diskonto <- l2
   
   
-  e1 <- (e[(bulan_ke+1):(k*12)]*premik(usia,k)) + adm
+  e1 <- (e[(bulan_ke+1):(k*12)]*premik(usia,k,JK)) + adm
   exp <- sum(e1*l2*peluang)
   
-  premium <- premik(usia,k)
+  premium <- premik(usia,k, JK)
   
-  Outflow = insurance(usia,k) + exp
+  Outflow = insurance(usia,k,JK) + exp
    
   Inflow <- sum(l2*peluang)*premium
   
