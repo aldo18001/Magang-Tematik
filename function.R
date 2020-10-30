@@ -53,11 +53,14 @@ insurance <- function(usia, k, discount_rate = 0.055, inflation =  0.025, benefi
   }
   l <- array()
   for(j in c(0:(k*12))){
-    l[j] <- (1+i)^(-i/12)
+    l[j] <- (1+i)^(-j/12)
   }
   diskonto <- l
-  peluangh <- c(1,cumprod(ph[(usia*12+2):(usia*12+k*12)]))
+  
+  #q bersyarat
+  peluangh <- c(cumprod(ph[(usia*12+1):(usia*12+k*12)]))
   peluangd <- q[(usia*12+1):(usia*12+k*12)]
+  
   a <- sum(diskonto*peluangh*peluangd)
   result <- a*benefit
   result
@@ -163,12 +166,13 @@ creserve <- function(usia,k,bulan_ke,discount_rate = 0.055, inflation = 0.025, b
   }
   diskonto <- l2
   
-  e1 <- (e[0:k]*premik(usia,k)) + adm
+  
+  e1 <- (e[(bulan_ke+1):(k*12)]*premik(usia,k)) + adm
   exp <- sum(e1*l2*peluang)
   
   premium <- premik(usia,k)
   
-  Outflow = (sum(l*peluang*peluangd)*benefit) + exp
+  Outflow = insurance(usia,k) + exp
    
   Inflow <- sum(l2*peluang)*premium
   
