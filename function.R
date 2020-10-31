@@ -151,6 +151,8 @@ creserve <- function(usia,k,bulan_ke,JK,discount_rate = 0.055, inflation = 0.025
   #peluang mati
   peluangd <- q[(usia2+1):(usia2+k1)]
   
+  outflow2 <- sum(l*peluang*peluangd)*benefit
+  
   
   
   
@@ -168,7 +170,7 @@ creserve <- function(usia,k,bulan_ke,JK,discount_rate = 0.055, inflation = 0.025
   
   premium <- premik(usia,k, JK)
   
-  Outflow = insurance(usia,k,JK) + exp
+  Outflow = outflow2 + exp
    
   Inflow <- sum(l2*peluang)*premium
   
