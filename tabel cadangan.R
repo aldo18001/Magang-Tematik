@@ -13,4 +13,3 @@ tabel <- function(usia,k,JK){
   
   r
 }
-#tes
