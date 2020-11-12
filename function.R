@@ -1,4 +1,4 @@
-annuity <- function(usia, k, JK, discount_rate = 0.055, inflation =  0.025){
+annuity <- function(usia, k, JK, discount_rate = 0.08, inflation =  0.025){
   usia <- usia-20
   i <- (discount_rate-inflation)
   if(JK=="L"){
@@ -16,7 +16,7 @@ annuity <- function(usia, k, JK, discount_rate = 0.055, inflation =  0.025){
   sum(diskonto*peluang)
 }
 
-xpns <- function(usia, k,JK,discount_rate = 0.055, inflation =  0.025){
+xpns <- function(usia, k,JK,discount_rate = 0.08, inflation =  0.025){
   usia <- usia-20
   i <- (discount_rate-inflation)
   if(JK=="L"){
@@ -38,7 +38,7 @@ xpns <- function(usia, k,JK,discount_rate = 0.055, inflation =  0.025){
 
 
 
-insurance <- function(usia, k, JK, discount_rate = 0.055, inflation =  0.025, benefit = 2000000000){
+insurance <- function(usia, k, JK, discount_rate = 0.08, inflation =  0.025, benefit = 1000000000){
   usia <- usia-20
   i <- (discount_rate-inflation)
 
@@ -64,20 +64,20 @@ insurance <- function(usia, k, JK, discount_rate = 0.055, inflation =  0.025, be
   result
 }
 
-premi <- function(usia,k,JK,discount_rate = 0.055, inflation =  0.025, benefit = 2000000000 ){
+premi <- function(usia,k,JK,discount_rate = 0.08, inflation =  0.025, benefit = 1000000000 ){
   result = insurance(usia,k,JK)/annuity(usia,k,JK)
   result
 }
 
 #premi kotor
-premik <- function(usia,k,JK,discount_rate = 0.055, inflation =  0.025, benefit = 2000000000, adm = 420000){
+premik <- function(usia,k,JK,discount_rate = 0.08, inflation =  0.025, benefit = 1000000000, adm = 60000){
   P = (insurance(usia,k,JK)+(adm*annuity(usia,k,JK)))/(annuity(usia,k,JK)-xpns(usia,k,JK)) 
   P
 }
   
 #Reserve but no expense
 
-reserve <- function(usia,k,bulan_ke,JK,discount_rate = 0.055, inflation = 0.025, benefit = 2000000000, adm = 420000){
+reserve <- function(usia,k,bulan_ke,JK,discount_rate = 0.08, inflation = 0.025, benefit = 1000000000, adm = 60000){
   usia1 <- usia-20
   i <- (discount_rate-inflation)
   k1 <- (k*12)-bulan_ke
@@ -124,7 +124,7 @@ reserve <- function(usia,k,bulan_ke,JK,discount_rate = 0.055, inflation = 0.025,
 
 #Reserve /w expense
 
-creserve <- function(usia,k,bulan_ke,JK,discount_rate = 0.055, inflation = 0.025, benefit = 2000000000, adm = 420000){
+creserve <- function(usia,k,bulan_ke,JK,discount_rate = 0.08, inflation = 0.025, benefit = 1000000000, adm = 60000){
   usia1 <- usia-20
   i <- (discount_rate-inflation)
   k1 <- (k*12)-bulan_ke
@@ -170,8 +170,11 @@ creserve <- function(usia,k,bulan_ke,JK,discount_rate = 0.055, inflation = 0.025
   
   premium <- premik(usia,k, JK)
   
+
+  #Outflow = insurance(usia,k,JK) + exp
+
   Outflow = insurance(usia,k,JK) + exp
-   
+
   Inflow <- sum(l2*peluang)*premium
   
   Result <- Outflow - Inflow
